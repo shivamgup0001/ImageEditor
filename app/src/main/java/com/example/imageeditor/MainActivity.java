@@ -199,9 +199,8 @@ public class MainActivity extends AppCompatActivity {
                 s= editText.getText().toString();
                 if(!TextUtils.isEmpty(s)) {
                     Bitmap b=drawTextToBitmap(MainActivity.this,s);
-                   check=1;
                    imageView.setImageBitmap(bitmap);
-                    s=null;
+                   // s=null;
 
                 }
                 else
@@ -227,6 +226,13 @@ public class MainActivity extends AppCompatActivity {
         canvas.drawCircle(x1,y1,30,p1);
         Log.d("shivam","Error");
         imageView.setImageBitmap(bitmap);
+        width=bitmap.getWidth();
+        height=bitmap.getHeight();
+        bitmap= bitmap.copy(Bitmap.Config.ARGB_8888,true);
+
+        pixelsCount=width*height;
+        pixels=new int[pixelsCount];
+        bitmap.getPixels(pixels,0,width,0,0,width,height);
         return bitmap;
     }
     private final int TEXT_SIZE=120;
@@ -257,6 +263,13 @@ public class MainActivity extends AppCompatActivity {
         rect.set(x,y-TEXT_SIZE,x+bounds.width(),y);
             canvas.drawRect(rect, paint1);
             canvas.drawText(gText, x, y, paint);
+        width=bitmap.getWidth();
+        height=bitmap.getHeight();
+        bitmap= bitmap.copy(Bitmap.Config.ARGB_8888,true);
+
+        pixelsCount=width*height;
+        pixels=new int[pixelsCount];
+        bitmap.getPixels(pixels,0,width,0,0,width,height);
 
         return bitmap;
 
@@ -379,13 +392,14 @@ public class MainActivity extends AppCompatActivity {
                    {
                        doodle(x,y);
                    }
-                   return true;
-                //    rect.left= (int) x;
-                  //  rect.right=rect.left+bounds.width();
-                    //rect.bottom= (int) y;
-                   // rect.top=rect.bottom-50;
-                    //drawTextToBitmap(MainActivity.this,s);
+                 // if()
+                  rect.left= (int) x;
+                  rect.right=rect.left+bounds.width();
+                  rect.bottom= (int) y;
+                  rect.top=rect.bottom-50;
+                  drawTextToBitmap(MainActivity.this,s);
 
+                return true;
 
         }
         return super.onTouchEvent(event);
